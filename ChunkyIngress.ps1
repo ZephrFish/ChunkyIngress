@@ -1,4 +1,4 @@
-function ChunkyIngress {
+function Invoke-ChunkyIngress {
     param (
         [Parameter(HelpMessage = "Specify the path to input file")]
         [string]
