@@ -7,7 +7,7 @@ Essentially, this script will take an input file, copy it to the clipboard in ch
 First, load the module. Then, the script will split the file supplied into the selected KBs and copy it to your clipboard. It will do this until the file is entirely copied and tell you to hit enter each time.
 ```
 ipmo .\ChunkyIngress.ps1
-ChunkyIngress -filePath "C:\Users\dev\ChunkyIngress.7z"
+Invoke-ChunkyIngress -filePath "C:\Users\dev\ChunkyIngress.7z"
 ```
 
 Once you've pasted the file into your env simply use the following PowerShell to rebuild the file:
@@ -21,7 +21,7 @@ $BuildMahFile = [Convert]::FromBase64String("")
 ![image](https://github.com/ZephrFish/ChunkyIngress/assets/5783068/0e743bb4-13e5-406b-b72c-e718b2854af3)
 
 ```
-ChunkyIngress -filePath "C:\Users\dev\ChunkyIngress.7z"
+Invoke-ChunkyIngress -filePath "C:\Users\dev\ChunkyIngress.7z"
 Chunk 0 copied to clipboard. Press Enter to copy next chunk or Ctrl+C to exit.
 
 
