@@ -1,5 +1,5 @@
 # ChunkyIngress
-[@ZephrFish](https://github.com/ZephrFish) Solving problems he didn't think he'd have on a Saturday with clipboard Copy&Paste limits with PowerShell. 
+As usual [@ZephrFish](https://github.com/ZephrFish) Solving problems, he didn't think he'd have on a Saturday night, with clipboard Copy&Paste limits using PowerShell. 
 
 Essentially, this script will take an input file, copy it to the clipboard in chunks, and allow you to paste it into an environment that only allows copying of text, not files. He built it because he was hitting clipboard limits for pasting things into an env.
 
@@ -46,7 +46,7 @@ $BuildMahFile = [Convert]::FromBase64String("")
 ```
 Invoke-ChunkyIngress -filePath "C:\Users\dev\ChunkyIngress.7z"
 Full Base64 string saved to C:\Users\dev\output.txt.
-Prepare for 6 blocks of data
+Prepare for 9 blocks of data
 Once you have pasted each into your environment, hit return to copy the next block
 Chunk 0 copied to clipboard. Press Enter to copy the next chunk or Ctrl+C to exit.
 
