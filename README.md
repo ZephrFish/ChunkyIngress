@@ -1,18 +1,7 @@
 # ChunkyIngress
-As usual [@ZephrFish](https://github.com/ZephrFish) Solving problems, he didn't think he'd have on a Saturday night, with clipboard Copy&Paste limits using PowerShell. 
+Solving problems, I didn't think he'd have on a Saturday night, with clipboard Copy&Paste limits using PowerShell. 
 
-Essentially, this script will take an input file, copy it to the clipboard in chunks, and allow you to paste it into an environment that only allows copying of text, not files. He built it because he was hitting clipboard limits for pasting things into an env.
-
-I noticed a few issues with the flags in the `README` and what actually was specified in the code, then i noted the outputfile didnt seem to be generating. SO, I made the following changes:
-
-Fixes & Code Revisions:
-
-- Corrected the `README` for usage
-- Added Error handling
-- Fixed output file creation
-- Confirmation of output file path
-
----
+Essentially, this script will take an input file, copy it to the clipboard in chunks, and allow you to paste it into an environment that only allows copying of text, not files. I built it because I was hitting clipboard limits for pasting things into an environment.
 
 ## Usage
 First, load the module. Then, the script will split the file supplied into the selected KBs and copy it to your clipboard. It will do this until the file is entirely copied and tell you to hit enter each time.
@@ -77,3 +66,11 @@ Chunk 8 copied to clipboard. Press Enter to copy the next chunk or Ctrl+C to exi
 
 Total chunks created: 9
 ```
+
+## Thanks
+
+- [SecEventsPen](https://github.com/Seceventspen) - Fixes & Code Revisions:
+  - Corrected the `README` for usage
+  - Added Error handling
+  - Fixed output file creation
+  - Confirmation of output file path
