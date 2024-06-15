@@ -14,7 +14,7 @@ ipmo .\ChunkyIngress.ps1
 
 **Encode:**
 ```
-Invoke-ChunkyIngress -mode encode -inputpath "C:\Users\dev\ChunkyIngress.7z" -outputpath "C:\Users\dev\ChunkyIngress.7z"
+Invoke-ChunkyIngress -mode encode -inputpath "C:\Users\dev\ChunkyIngress.7z" -outputpath " C:\Users\dev\output.txt"
 ```
 
 **Decode (locally on the originating box)**
