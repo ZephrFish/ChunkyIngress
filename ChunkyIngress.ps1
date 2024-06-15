@@ -11,39 +11,52 @@ function Invoke-ChunkyIngress {
         [string]$outputPath
     )
 
-    if ($mode -eq 'encode') {
-        $fileBytes = [IO.File]::ReadAllBytes($inputPath)
-        $base64String = [Convert]::ToBase64String($fileBytes)
-        $chunkSize = 68KB  # Modify chunk size as needed
-        $chunkCount = [math]::Ceiling($base64String.Length / $chunkSize)
-        
-        Write-Output "Prepare for ${chunkCount} blocks of data"
-        Write-Output "Once you have pasted each into your environment, hit return to copy the next block"
-
-        for ($i = 0; $i -lt $chunkCount; $i++) {
-            $startIndex = $i * $chunkSize
-            $chunk = $base64String.Substring($startIndex, [math]::Min($chunkSize, $base64String.Length - $startIndex))
-            Set-Clipboard -Value $chunk
-            Write-Output "Chunk $i copied to clipboard. Press Enter to copy the next chunk or Ctrl+C to exit."
-            Read-Host
-        }
-
-        Write-Output "Total chunks created: $chunkCount"
-    } elseif ($mode -eq 'decode') {
-        $fullBase64String = ''
-        $currentChunk = 0
-        Write-Output "Paste each chunk of Base64 data. After each paste, hit Enter. Type 'end' to finish."
-
-        do {
-            $input = Read-Host "Enter chunk $currentChunk or 'end' to finish"
-            if ($input -ne 'end') {
-                $fullBase64String += $input
-                $currentChunk++
+    try {
+        if ($mode -eq 'encode') {
+            if (-not (Test-Path $inputPath)) {
+                throw "Input file does not exist: $inputPath"
             }
-        } while ($input -ne 'end')
+            $fileBytes = [IO.File]::ReadAllBytes($inputPath)
+            $base64String = [Convert]::ToBase64String($fileBytes)
+            
+            # Save the full Base64 string to the output file
+            [IO.File]::WriteAllText($outputPath, $base64String)
+            Write-Output "Full Base64 string saved to $outputPath."
 
-        $fileBytes = [Convert]::FromBase64String($fullBase64String)
-        [IO.File]::WriteAllBytes($outputPath, $fileBytes)
-        Write-Output "File has been reconstructed and saved to $outputPath."
+            # Copy the Base64 string to the clipboard in chunks
+            $chunkSize = 68000  # Modify chunk size as needed
+            $chunkCount = [math]::Ceiling($base64String.Length / $chunkSize)
+            
+            Write-Output "Prepare for ${chunkCount} blocks of data"
+            Write-Output "Once you have pasted each into your environment, hit return to copy the next block"
+
+            for ($i = 0; $i -lt $chunkCount; $i++) {
+                $startIndex = $i * $chunkSize
+                $chunk = $base64String.Substring($startIndex, [math]::Min($chunkSize, $base64String.Length - $startIndex))
+                Set-Clipboard -Value $chunk
+                Write-Output "Chunk $i copied to clipboard. Press Enter to copy the next chunk or Ctrl+C to exit."
+                Read-Host
+            }
+
+            Write-Output "Total chunks created: $chunkCount"
+        } elseif ($mode -eq 'decode') {
+            $fullBase64String = ''
+            $currentChunk = 0
+            Write-Output "Paste each chunk of Base64 data. After each paste, hit Enter. Type 'end' to finish."
+
+            do {
+                $input = Read-Host "Enter chunk $currentChunk or 'end' to finish"
+                if ($input -ne 'end') {
+                    $fullBase64String += $input
+                    $currentChunk++
+                }
+            } while ($input -ne 'end')
+
+            $fileBytes = [Convert]::FromBase64String($fullBase64String)
+            [IO.File]::WriteAllBytes($outputPath, $fileBytes)
+            Write-Output "File has been reconstructed and saved to $outputPath."
+        }
+    } catch {
+        Write-Error $_.Exception.Message
     }
 }
